@@ -1,0 +1,778 @@
+from telebot import types
+import telebot
+import time
+import urllib
+from urllib import request
+from urllib.parse import quote
+import re, os, sys
+import requests
+from bs4 import BeautifulSoup
+
+
+API_TOKEN = '1177129052:AAG94nZh1oNSLucOBJQIbyeMIPQqMBVCbcE'
+
+global a
+a = []
+global cc
+cc = []
+global gg
+gg = []
+global pol
+pol = []
+global gl
+gl = []
+global jj
+jj = []
+global jo
+jo = 0
+global jo1
+jo1 = 0
+global aue
+aue = []
+
+bot = telebot.TeleBot(API_TOKEN)
+
+key = telebot.types.ReplyKeyboardMarkup(True, True)
+key.row('Курсы Stepik по Математике', 'Видеокурсы по Математике')
+key1 = telebot.types.ReplyKeyboardMarkup(True, True)
+key1.row('Курсы Stepik по Английскому', 'Видеокурсы по Английскому')
+keyboard55 = types.InlineKeyboardMarkup()
+Button76 = types.InlineKeyboardButton(text='Начать Тест',  callback_data = 'Start1')
+keyboard55.add(Button76)
+keyboard1 = types.InlineKeyboardMarkup()
+Button0 = types.InlineKeyboardButton(text='Математика', callback_data = 'Math')
+Button99 = types.InlineKeyboardButton(text='Английский язык', callback_data = 'Eng')
+keyboard1.add(Button0, Button99)
+keyboard = types.InlineKeyboardMarkup()
+Button1 = types.InlineKeyboardButton(text='Начать Тест',  callback_data = 'Start')
+keyboard.add(Button1)
+keyboard2 = types.InlineKeyboardMarkup()
+Button2 = types.InlineKeyboardButton(text='157263', callback_data = 'yes')
+Button3 = types.InlineKeyboardButton(text='157268', callback_data = 'wrong')
+Button4 = types.InlineKeyboardButton(text='167262', callback_data = 'wrong')
+keyboard2.add(Button2, Button3, Button4)
+keyboard3 = types.InlineKeyboardMarkup()
+Button5 = types.InlineKeyboardButton(text='', callback_data = 'yes')
+Button6 = types.InlineKeyboardButton(text='', callback_data = 'wrong')
+Button7 = types.InlineKeyboardButton(text='', callback_data = 'wrong')
+keyboard3.add(Button5, Button6, Button7)
+
+@bot.message_handler(commands=['help', 'start'])
+def send_welcome(message):
+    global a
+    if message.from_user.id in a:
+        bot.send_message(chat_id=message.chat.id, text='Вы уже авторизованы')
+    else:
+        a.append(message.from_user.id)
+        bot.send_message(chat_id=message.chat.id, text='Привет, ' + str(message.from_user.first_name) + '' + ' это School_SkillBot. Функции и возможности бота находятся в описании.')
+        bot.send_message(chat_id=message.chat.id, text='Выберете или введите один из скилов, который хотите прокачать:', reply_markup=keyboard1)
+
+@bot.callback_query_handler(func=lambda call: True)
+def callback_data(call):
+    if call.data == 'Math':
+        bot.send_message(chat_id=call.message.chat.id, text='Вы должны пройти тест, чтобы мы могли определить ваш уровень! Ответы на вопросы присылать с укозанием номера вопроса. Пример: "М Вопрос 2:"', reply_markup= keyboard)
+    elif call.data == 'Eng':
+        bot.send_message(chat_id=call.message.chat.id, text='Вы должны пройти тест, чтобы мы могли определить ваш уровень! Ответы на вопросы присылать с укозанием номера вопроса. Пример: "А Вопрос 2:"', reply_markup=keyboard55)
+    elif call.data == 'Start':
+        bot.send_message(chat_id=call.message.chat.id, text='М вопрос 1: 267*589')
+    elif call.data == 'Start1':
+        bot.send_message(chat_id=call.message.chat.id, text='А вопрос 1: Переведите фразу: I appreciate it')
+
+@bot.message_handler(content_types=['text'])
+def send_text(message):
+    global cc
+    global pol
+    global jo
+    global jo1
+    global aue
+    if 'м 1 вопрос' in message.text.lower() or 'м вопрос 1' in message.text.lower():
+        aue.append(message.chat.id)
+        print(message.text)
+        if message.from_user.id+1 in cc:
+                bot.send_message(chat_id=message.chat.id, text='Вы уже ответили')
+        else:
+            cc.append(message.from_user.id+1)
+            if '157263' in message.text:
+                gg.append(message.from_user.id + 1)
+                bot.send_message(chat_id=message.chat.id, text='Верно')
+                bot.send_message(chat_id=message.chat.id, text='М вопрос 2: В ящике лежат 100 синих, 100 красных, 100 зелёных и 100 фиолетовых карандашей. Сколько карандашей необходимо достать, не заглядывая в ящик, чтобы среди них обязательно нашлись по крайней мере 1 красный и 1 фиолетовый? Укажите числовой ответ.')
+            else:
+                bot.send_message(chat_id=message.chat.id, text='Неверно, правильный ответ: 157263')
+                bot.send_message(chat_id=message.chat.id, text='М вопрос 2: В ящике лежат 100 синих, 100 красных, 100 зелёных и 100 фиолетовых карандашей. Сколько карандашей необходимо достать, не заглядывая в ящик, чтобы среди них обязательно нашлись по крайней мере 1 красный и 1 фиолетовый? Укажите числовой ответ.')
+    elif 'м 2 вопрос' in message.text.lower() or 'м вопрос 2' in message.text.lower():
+        if message.from_user.id+2 in cc:
+                bot.send_message(chat_id=message.chat.id, text='Вы уже ответили')
+        else:
+            cc.append(message.from_user.id+2)
+            if '301' in message.text:
+                gg.append(message.from_user.id + 2)
+                bot.send_message(chat_id=message.chat.id, text='Верно')
+                bot.send_message(chat_id=message.chat.id, text='М вопрос 3: Имеется 19 гирек весом 1 г, 2 г, 3 г, ..., 19 г. Девять из них – железные, девять – бронзовые и одна – золотая. Известно, что общий вес всех железных гирек на 90 г больше, чем общий вес бронзовых. Найдите вес золотой гирьки. Укажите числовой ответ.')
+            else:
+                bot.send_message(chat_id=message.chat.id, text='Неверно, правильный ответ: 301')
+                bot.send_message(chat_id=message.chat.id, text='М вопрос 3: Имеется 19 гирек весом 1 г, 2 г, 3 г, ..., 19 г. Девять из них – железные, девять – бронзовые и одна – золотая. Известно, что общий вес всех железных гирек на 90 г больше, чем общий вес бронзовых. Найдите вес золотой гирьки. Укажите числовой ответ.')
+    elif 'м 3 вопрос' in message.text.lower() or 'м вопрос 3' in message.text.lower():
+        if message.from_user.id+3 in cc:
+                bot.send_message(chat_id=message.chat.id, text='Вы уже ответили')
+        else:
+            cc.append(message.from_user.id+3)
+            if '10' in message.text:
+                gg.append(message.from_user.id+3)
+                bot.send_message(chat_id=message.chat.id, text='Верно')
+                bot.send_message(chat_id=message.chat.id, text='М вопрос 4: Периметр параллелограмма  равен 46см, AB= 14см. Найти отрезки, которые образуются при пересечении биссектрисы угла А стороны CD. Дано: ABCD – параллелограмм; AB = 14см , AL – биссектриса A. Пример ответа: 1 и 2')
+                bot.send_photo(chat_id=message.chat.id, photo='https://static-interneturok.cdnvideo.ru/content/konspekt_image/134332/c06dc010_c1b2_0131_6941_3d765dfd91bb.png')
+            else:
+                bot.send_message(chat_id=message.chat.id, text='Неверно, правильный ответ: 10')
+                bot.send_message(chat_id=message.chat.id, text='М вопрос 4: Периметр параллелограмма  равен 46см, AB= 14см. Найти отрезки, которые образуются при пересечении биссектрисы угла А стороны CD. Дано: ABCD – параллелограмм; AB = 14см , AL – биссектриса A. Пример ответа: 1 и 2')
+                bot.send_photo(chat_id=message.chat.id, photo='https://static-interneturok.cdnvideo.ru/content/konspekt_image/134332/c06dc010_c1b2_0131_6941_3d765dfd91bb.png')
+    elif 'м 4 вопрос' in message.text.lower() or 'м вопрос 4' in message.text.lower():
+        if message.from_user.id+4 in cc:
+                bot.send_message(chat_id=message.chat.id, text='Вы уже ответили')
+        else:
+            cc.append(message.from_user.id+4)
+            if '9 и 5' in message.text or '9 5' in message.text':
+                gg.append(message.from_user.id + 4)
+                bot.send_message(chat_id=message.chat.id, text='Верно')
+                bot.send_message(chat_id=message.chat.id, text='М вопрос 5: В окружность радиуса R вписан треугольник. Вторая окружность, концентрическая с первой, касается одной стороны треугольника и делит каждую из двух других сторон на три равные части. Радиус второй окружности равен r. Найдите отношение r / R. Пример ответа, если это дробное число: 1/2')
+            else:
+                bot.send_message(chat_id=message.chat.id, text='Неверно, правильный ответ: 157263')
+                bot.send_message(chat_id=message.chat.id, text='М вопрос 5: В окружность радиуса R вписан треугольник. Вторая окружность, концентрическая с первой, касается одной стороны треугольника и делит каждую из двух других сторон на три равные части. Радиус второй окружности равен r. Найдите отношение r / R. Пример ответа, если это дробное число: 1/2')
+    elif 'м 5 вопрос' in message.text.lower() or 'м вопрос 5' in message.text.lower():
+        if message.from_user.id + 5 in cc:
+            bot.send_message(chat_id=message.chat.id, text='Вы уже ответили')
+        else:
+            cc.append(message.from_user.id + 5)
+            if '5/9' in message.text:
+                gg.append(message.from_user.id + 5)
+                bot.send_message(chat_id=message.chat.id, text='Верно')
+                bot.send_message(chat_id=message.chat.id, text='Какие курсы вы хотите получить?', reply_markup=key)
+                jo = 0
+                lox = message.from_user.id
+                for i12 in gg:
+                    print(i12)
+                    lox += 1
+                    if str(lox) in str(i12):
+                        jo +=1
+                    elif str(lox+2) in str(i12):
+                        jo +=1
+                    elif str(lox+3) in str(i12):
+                        jo +=1
+                    elif str(lox+4) in str(i12):
+                        jo +=1
+                    elif str(lox+5) in str(i12):
+                        jo +=1
+                bot.send_message(chat_id=message.chat.id, text='Вы правильно ответили на '+str(jo) + ' из 5')
+            else:
+                bot.send_message(chat_id=message.chat.id, text='Неверно, правильный ответ: 5/9')
+                cc.append(message.from_user.id + 5)
+                bot.send_message(chat_id=message.chat.id, text='Какие курсы вы хотите получить?', reply_markup=key)
+                print(cc)
+                jo = 0
+                lox = message.from_user.id
+                for i12 in gg:
+                    print(i12)
+                    lox += 1
+                    if str(lox) in str(i12):
+                        jo += 1
+                    elif str(lox + 2) in str(i12):
+                        jo += 1
+                    elif str(lox + 3) in str(i12):
+                        jo += 1
+                    elif str(lox + 4) in str(i12):
+                        jo += 1
+                    elif str(lox + 5) in str(i12):
+                        jo += 1
+                bot.send_message(chat_id=message.chat.id, text='Вы правильно ответили на ' + str(jo) + ' из 5')
+    elif 'а 1 вопрос' in message.text.lower() or 'а вопрос 1' in message.text.lower():
+        aue.append(message.chat.id + 1)
+        print(message.text)
+        if message.from_user.id + 1 in pol:
+            bot.send_message(chat_id=message.chat.id, text='Вы уже ответили')
+        else:
+            pol.append(message.from_user.id + 1)
+            if 'Я ценю это' in message.text or 'я ценю это' in message.text:
+                gl.append(message.from_user.id + 1)
+                bot.send_message(chat_id=message.chat.id, text='Верно')
+                bot.send_message(chat_id=message.chat.id,
+                                 text='А вопрос 2: Вставьте артикль, где это необходимо. _______ butter is made of milk. My mother is in ____ kitchen now. I usually have ____ tea for breakfast.After school we went ____ home. Pupils do homework in ____ evening.____ USA is a big country.I live in ____ big city. Пример ответов: hello, hello ..., hello. Перечисляйте артикли через запятую, там, где его нет, не пишите ничего')
+            else:
+                bot.send_message(chat_id=message.chat.id, text='Неверно, правильный ответ: Я ценю это')
+                bot.send_message(chat_id=message.chat.id,
+                                 text='А вопрос 2: Вставьте артикль, где это необходимо. _______ butter is made of milk. My mother is in ____ kitchen now. I usually have ____ tea for breakfast.After school we went ____ home. Pupils do homework in ____ evening.____ USA is a big country.I live in ____ big city. Пример ответов: hello, hello ..., hello. Перечисляйте артикли через запятую, там, где его нет, не пишите ничего')
+    elif 'а 2 вопрос' in message.text.lower() or 'а вопрос 2' in message.text.lower():
+        print(message.text)
+        if message.from_user.id + 2 in pol:
+            bot.send_message(chat_id=message.chat.id, text='Вы уже ответили')
+        else:
+            pol.append(message.from_user.id + 2)
+            if 'the the the a' in message.text.lower():
+                gl.append(message.from_user.id + 2)
+                bot.send_message(chat_id=message.chat.id, text='Верно')
+                bot.send_message(chat_id=message.chat.id,
+                                 text='А вопрос 3: Выберите правильный вариант. I'+'ve just bought ... copy of his latest book. a) — , b) a, c) the, d) any.')
+            else:
+                bot.send_message(chat_id=message.chat.id, text='Неверно, правильный ответ: the, the, the, a')
+                bot.send_message(chat_id=message.chat.id,
+                                 text='А вопрос 3: Выберите правильный вариант. I'+'ve just bought ... copy of his latest book. a) — , b) a, c) the, d) any.')
+    elif 'а 3 вопрос' in message.text.lower() or 'а вопрос 3' in message.text.lower():
+        print(message.text)
+        if message.from_user.id + 3 in pol:
+            bot.send_message(chat_id=message.chat.id, text='Вы уже ответили')
+        else:
+            pol.append(message.from_user.id + 3)
+            if 'b' in message.text:
+                gl.append(message.from_user.id + 3)
+                bot.send_message(chat_id=message.chat.id, text='Верно')
+                bot.send_message(chat_id=message.chat.id,
+                                 text='А вопрос 4: Выберите правильный вариант  ... in my class likes him. a) All, b) All pupils, c) All the pupils, d) Everyone.')
+            else:
+                bot.send_message(chat_id=message.chat.id, text='Неверно, правильный ответ: b)')
+                bot.send_message(chat_id=message.chat.id,
+                                 text='А вопрос 4: Выберите правильный вариант  ... in my class likes him. a) All, b) All pupils, c) All the pupils, d) Everyone.')
+    elif 'а 4 вопрос' in message.text.lower() or 'а вопрос 4' in message.text.lower():
+        print(message.text)
+        if message.from_user.id + 4 in pol:
+            bot.send_message(chat_id=message.chat.id, text='Вы уже ответили')
+        else:
+            pol.append(message.from_user.id + 4)
+            if 'd' in message.text or 'Everyone' in message.text:
+                gl.append(message.from_user.id + 4)
+                bot.send_message(chat_id=message.chat.id, text='Верно')
+                bot.send_message(chat_id=message.chat.id,
+                                 text='А вопрос 5: Выберите правильный вариант Jack left ... Paris last week. a) in, b) for, c) from, d) to.')
+            else:
+                bot.send_message(chat_id=message.chat.id, text='Неверно, правильный ответ: d)')
+                bot.send_message(chat_id=message.chat.id,
+                                 text='А вопрос 5: Выберите правильный вариант Jack left ... Paris last week. a) in, b) for, c) from, d) to.')
+    elif 'а 5 вопрос' in message.text.lower() or 'а вопрос 5' in message.text.lower():
+        print(message.text)
+        if message.from_user.id + 5 in pol:
+            bot.send_message(chat_id=message.chat.id, text='Вы уже ответили')
+        elif 'b' in message.text or 'for' in message.text:
+            bot.send_message(chat_id=message.chat.id, text='Верно')
+            bot.send_message(chat_id=message.chat.id, text='Какие курсы вы хотите получить?', reply_markup=key1)
+            gl.append(message.from_user.id + 5)
+            jo1 = 0
+            lox1 = message.from_user.id
+            for i13 in gl:
+                print(i13)
+                lox1 += 1
+                if str(lox1) in str(i13):
+                    jo1 += 1
+                elif str(lox1 + 2) in str(i13):
+                    jo1 += 1
+                elif str(lox1 + 3) in str(i13):
+                    jo1 += 1
+                elif str(lox1 + 4) in str(i13):
+                    jo1 += 1
+                elif str(lox1 + 5) in str(i13):
+                    jo1 += 1
+        else:
+            for i13 in gl:
+                print(i13)
+                lox1 += 1
+                if str(lox1) in str(i13):
+                    jo1 += 1
+                elif str(lox1 + 2) in str(i13):
+                    jo1 += 1
+                elif str(lox1 + 3) in str(i13):
+                    jo1 += 1
+                elif str(lox1 + 4) in str(i13):
+                    jo1 += 1
+                elif str(lox1 + 5) in str(i13):
+                    jo1 += 1
+            bot.send_message(chat_id=message.chat.id, text='Неверно, правильный ответ: b)')
+            pol.append(message.from_user.id + 5)
+            bot.send_message(chat_id=message.chat.id, text='Какие курсы вы хотите получить?', reply_markup=key1)
+    elif message.text == 'Видеокурсы по Математике':
+        if str(jo) == '0':
+            mas = []
+            sq = 'http://www.youtube.com/results?search_query=' + quote('Математика 5 класс')
+            doc = urllib.request.urlopen(sq).read().decode('UTF-8', errors='ignore')
+            match1 = re.compile('\?v\=(.+?)\ ')
+            match = match1.findall(doc)
+            if not (match is None):
+                for ii in match:
+                    if (len(ii) < 25):
+                        mas.append(ii)
+            mas = dict(zip(mas, mas)).values()
+            mas2 = []
+            for y in mas: mas2.append('http://www.youtube.com/watch?v=' + y)
+            for il in mas2:
+                bot.send_message(chat_id=message.chat.id, text=il)
+        elif str(jo) == '1':
+            mas = []
+            sq = 'http://www.youtube.com/results?search_query=' + quote('Математика 7 класс')
+            doc = urllib.request.urlopen(sq).read().decode('UTF-8', errors='ignore')
+            match1 = re.compile('\?v\=(.+?)\ ')
+            match = match1.findall(doc)
+            if not (match is None):
+                for ii in match:
+                    if (len(ii) < 25):
+                        mas.append(ii)
+            mas = dict(zip(mas, mas)).values()
+            mas2 = []
+            for y in mas: mas2.append('http://www.youtube.com/watch?v=' + y)
+            for il in mas2:
+                bot.send_message(chat_id=message.chat.id, text=il)
+            return mas2
+        elif str(jo) == '2':
+            mas = []
+            sq = 'http://www.youtube.com/results?search_query=' + quote('Математика 8 класс')
+            doc = urllib.request.urlopen(sq).read().decode('UTF-8', errors='ignore')
+            match1 = re.compile('\?v\=(.+?)\ ')
+            match = match1.findall(doc)
+            if not (match is None):
+                for ii in match:
+                    if (len(ii) < 25):
+                        mas.append(ii)
+            mas = dict(zip(mas, mas)).values()
+            mas2 = []
+            for y in mas: mas2.append('http://www.youtube.com/watch?v=' + y)
+            for il in mas2:
+                bot.send_message(chat_id=message.chat.id, text=il)
+            return mas2
+        elif str(jo) == '3':
+            mas = []
+            sq = 'http://www.youtube.com/results?search_query=' + quote('Математика 9 класс')
+            doc = urllib.request.urlopen(sq).read().decode('UTF-8', errors='ignore')
+            match1 = re.compile('\?v\=(.+?)\ ')
+            match = match1.findall(doc)
+            if not (match is None):
+                for ii in match:
+                    if (len(ii) < 25):
+                        mas.append(ii)
+            mas = dict(zip(mas, mas)).values()
+            mas2 = []
+            for y in mas: mas2.append('http://www.youtube.com/watch?v=' + y)
+            for il in mas2:
+                bot.send_message(chat_id=message.chat.id, text=il)
+            return mas2
+        elif str(jo) == '4':
+            mas = []
+            sq = 'http://www.youtube.com/results?search_query=' + quote('Математика 10 класс')
+            doc = urllib.request.urlopen(sq).read().decode('UTF-8', errors='ignore')
+            match1 = re.compile('\?v\=(.+?)\ ')
+            match = match1.findall(doc)
+            if not (match is None):
+                for ii in match:
+                    if (len(ii) < 25):
+                        mas.append(ii)
+            mas = dict(zip(mas, mas)).values()
+            mas2 = []
+            for y in mas: mas2.append('http://www.youtube.com/watch?v=' + y)
+            for il in mas2:
+                bot.send_message(chat_id=message.chat.id, text=il)
+            return mas2
+        elif str(jo) == '5':
+            mas = []
+            sq = 'http://www.youtube.com/results?search_query=' + quote('Математика 11 класс')
+            doc = urllib.request.urlopen(sq).read().decode('UTF-8', errors='ignore')
+            match1 = re.compile('\?v\=(.+?)\ ')
+            match = match1.findall(doc)
+            if not (match is None):
+                for ii in match:
+                    if (len(ii) < 25):
+                        mas.append(ii)
+            mas = dict(zip(mas, mas)).values()
+            mas2 = []
+            for y in mas: mas2.append('http://www.youtube.com/watch?v=' + y)
+            for il in mas2:
+                bot.send_message(chat_id=message.chat.id, text=il)
+            return mas2
+    elif message.text == 'Видеокурсы по Английскому':
+        if str(jo1) == '0':
+            mas = []
+            sq = 'http://www.youtube.com/results?search_query=' + quote('Английский 5 класс')
+            doc = urllib.request.urlopen(sq).read().decode('UTF-8', errors='ignore')
+            match1 = re.compile('\?v\=(.+?)\ ')
+            match = match1.findall(doc)
+            if not (match is None):
+                for ii in match:
+                    if (len(ii) < 25):
+                        mas.append(ii)
+            mas = dict(zip(mas, mas)).values()
+            mas2 = []
+            for y in mas: mas2.append('http://www.youtube.com/watch?v=' + y)
+            for il in mas2:
+                bot.send_message(chat_id=message.chat.id, text=il)
+        elif str(jo1) == '1':
+            mas = []
+            sq = 'http://www.youtube.com/results?search_query=' + quote('Английский 7 класс')
+            doc = urllib.request.urlopen(sq).read().decode('UTF-8', errors='ignore')
+            match1 = re.compile('\?v\=(.+?)\ ')
+            match = match1.findall(doc)
+            if not (match is None):
+                for ii in match:
+                    if (len(ii) < 25):
+                        mas.append(ii)
+            mas = dict(zip(mas, mas)).values()
+            mas2 = []
+            for y in mas: mas2.append('http://www.youtube.com/watch?v=' + y)
+            for il in mas2:
+                bot.send_message(chat_id=message.chat.id, text=il)
+            return mas2
+        elif str(jo1) == '2':
+            mas = []
+            sq = 'http://www.youtube.com/results?search_query=' + quote('Английский 8 класс')
+            doc = urllib.request.urlopen(sq).read().decode('UTF-8', errors='ignore')
+            match1 = re.compile('\?v\=(.+?)\ ')
+            match = match1.findall(doc)
+            if not (match is None):
+                for ii in match:
+                    if (len(ii) < 25):
+                        mas.append(ii)
+            mas = dict(zip(mas, mas)).values()
+            mas2 = []
+            for y in mas: mas2.append('http://www.youtube.com/watch?v=' + y)
+            for il in mas2:
+                bot.send_message(chat_id=message.chat.id, text=il)
+            return mas2
+        elif str(jo1) == '3':
+            mas = []
+            sq = 'http://www.youtube.com/results?search_query=' + quote('Английский 9 класс')
+            doc = urllib.request.urlopen(sq).read().decode('UTF-8', errors='ignore')
+            match1 = re.compile('\?v\=(.+?)\ ')
+            match = match1.findall(doc)
+            if not (match is None):
+                for ii in match:
+                    if (len(ii) < 25):
+                        mas.append(ii)
+            mas = dict(zip(mas, mas)).values()
+            mas2 = []
+            for y in mas: mas2.append('http://www.youtube.com/watch?v=' + y)
+            for il in mas2:
+                bot.send_message(chat_id=message.chat.id, text=il)
+            return mas2
+        elif str(jo1) == '4':
+            mas = []
+            sq = 'http://www.youtube.com/results?search_query=' + quote('Английский 10 класс')
+            doc = urllib.request.urlopen(sq).read().decode('UTF-8', errors='ignore')
+            match1 = re.compile('\?v\=(.+?)\ ')
+            match = match1.findall(doc)
+            if not (match is None):
+                for ii in match:
+                    if (len(ii) < 25):
+                        mas.append(ii)
+            mas = dict(zip(mas, mas)).values()
+            mas2 = []
+            for y in mas: mas2.append('http://www.youtube.com/watch?v=' + y)
+            for i2 in mas2:
+                bot.send_message(chat_id=message.chat.id, text=il)
+            return mas2
+        elif str(jo1) == '5':
+            mas = []
+            sq = 'http://www.youtube.com/results?search_query=' + quote('Английский 11 класс')
+            doc = urllib.request.urlopen(sq).read().decode('UTF-8', errors='ignore')
+            match1 = re.compile('\?v\=(.+?)\ ')
+            match = match1.findall(doc)
+            if not (match is None):
+                for ii in match:
+                    if (len(ii) < 25):
+                        mas.append(ii)
+            mas = dict(zip(mas, mas)).values()
+            mas2 = []
+            for y in mas: mas2.append('http://www.youtube.com/watch?v=' + y)
+            for i2 in mas2:
+                bot.send_message(chat_id=message.chat.id, text=il)
+            return mas2
+    elif message.text == 'Курсы Stepik по Математике':
+        if str(jo) == '0':
+            url = 'https://stepik.org/catalog?language=ru&q=' + 'Математика. 6 класс'
+            hdr = {'User-Agent': 'YaBrowser/20.6.0.910'}
+            response = requests.get(url, headers=hdr)
+            print(response.status_code)
+            html = response.text
+            multi_class = "course-promo-widget__title ember-link ember-view"
+            soup = BeautifulSoup(html, "html.parser")
+            course_titles = soup.find_all("a", {"class": "course-promo-widget__title"})
+            print(len(course_titles))
+            title_list = []
+            for title in course_titles:
+                c = str(title)
+                a = c.find('<')
+                b = c.find('>') + 1
+                d = c[a:b]
+                e = c.replace(d, "")
+                f = e.replace("</a>", "")
+                course_link = 'stepik.org/' + title["href"]
+                full_message = '[' + f + ']' + '(' + course_link + ')'
+                bot.send_message(message.chat.id, full_message, parse_mode="Markdown")
+            alert_text = "Под действием защиты Stepik от парсинга Мы можем показывать только ограниченное количество курсов. Полный список курсов вы можете найти [здесь](" + url + ")"
+            bot.send_message(message.chat.id, alert_text, parse_mode="Markdown")
+        elif str(jo) == '1':
+            url = 'https://stepik.org/catalog?language=ru&q=' + 'Математика. 7 класс'
+            hdr = {'User-Agent': 'YaBrowser/20.6.0.910'}
+            response = requests.get(url, headers=hdr)
+            print(response.status_code)
+            html = response.text
+            multi_class = "course-promo-widget__title ember-link ember-view"
+            soup = BeautifulSoup(html, "html.parser")
+            course_titles = soup.find_all("a", {"class": "course-promo-widget__title"})
+            print(len(course_titles))
+            title_list = []
+            for title in course_titles:
+                c = str(title)
+                a = c.find('<')
+                b = c.find('>') + 1
+                d = c[a:b]
+                e = c.replace(d, "")
+                f = e.replace("</a>", "")
+                course_link = 'stepik.org/' + title["href"]
+                full_message = '[' + f + ']' + '(' + course_link + ')'
+                bot.send_message(message.chat.id, full_message, parse_mode="Markdown")
+            alert_text = "Под действием защиты Stepik от парсинга Мы можем показывать только ограниченное количество курсов. Полный список курсов вы можете найти [здесь](" + url + ")"
+            bot.send_message(message.chat.id, alert_text, parse_mode="Markdown")
+        elif str(jo) == '2':
+            url = 'https://stepik.org/catalog?language=ru&q=' + 'Математика. 8 класс'
+            hdr = {'User-Agent': 'YaBrowser/20.6.0.910'}
+            response = requests.get(url, headers=hdr)
+            print(response.status_code)
+            html = response.text
+            multi_class = "course-promo-widget__title ember-link ember-view"
+            soup = BeautifulSoup(html, "html.parser")
+            course_titles = soup.find_all("a", {"class": "course-promo-widget__title"})
+            print(len(course_titles))
+            title_list = []
+            for title in course_titles:
+                c = str(title)
+                a = c.find('<')
+                b = c.find('>') + 1
+                d = c[a:b]
+                e = c.replace(d, "")
+                f = e.replace("</a>", "")
+                course_link = 'stepik.org/' + title["href"]
+                full_message = '[' + f + ']' + '(' + course_link + ')'
+                bot.send_message(message.chat.id, full_message, parse_mode="Markdown")
+            alert_text = "Под действием защиты Stepik от парсинга Мы можем показывать только ограниченное количество курсов. Полный список курсов вы можете найти [здесь](" + url + ")"
+            bot.send_message(message.chat.id, alert_text, parse_mode="Markdown")
+        elif str(jo) == '3':
+            url = 'https://stepik.org/catalog?language=ru&q=' + 'Математика 10 класс'
+            hdr = {'User-Agent': 'YaBrowser/20.6.0.910'}
+            response = requests.get(url, headers=hdr)
+            print(response.status_code)
+            html = response.text
+            multi_class = "course-promo-widget__title ember-link ember-view"
+            soup = BeautifulSoup(html, "html.parser")
+            course_titles = soup.find_all("a", {"class": "course-promo-widget__title"})
+            print(len(course_titles))
+            title_list = []
+            for title in course_titles:
+                c = str(title)
+                a = c.find('<')
+                b = c.find('>') + 1
+                d = c[a:b]
+                e = c.replace(d, "")
+                f = e.replace("</a>", "")
+                course_link = 'stepik.org/' + title["href"]
+                full_message = '[' + f + ']' + '(' + course_link + ')'
+                bot.send_message(message.chat.id, full_message, parse_mode="Markdown")
+            alert_text = "Под действием защиты Stepik от парсинга Мы можем показывать только ограниченное количество курсов. Полный список курсов вы можете найти [здесь](" + url + ")"
+            bot.send_message(message.chat.id, alert_text, parse_mode="Markdown")
+        elif str(jo) == '4':
+            url = 'https://stepik.org/catalog?language=ru&q=' + 'Математика ЕГЭ'
+            hdr = {'User-Agent': 'YaBrowser/20.6.0.910'}
+            response = requests.get(url, headers=hdr)
+            print(response.status_code)
+            html = response.text
+            multi_class = "course-promo-widget__title ember-link ember-view"
+            soup = BeautifulSoup(html, "html.parser")
+            course_titles = soup.find_all("a", {"class": "course-promo-widget__title"})
+            print(len(course_titles))
+            title_list = []
+            for title in course_titles:
+                c = str(title)
+                a = c.find('<')
+                b = c.find('>') + 1
+                d = c[a:b]
+                e = c.replace(d, "")
+                f = e.replace("</a>", "")
+                course_link = 'stepik.org/' + title["href"]
+                full_message = '[' + f + ']' + '(' + course_link + ')'
+                bot.send_message(message.chat.id, full_message, parse_mode="Markdown")
+            alert_text = "Под действием защиты Stepik от парсинга Мы можем показывать только ограниченное количество курсов. Полный список курсов вы можете найти [здесь](" + url + ")"
+            bot.send_message(message.chat.id, alert_text, parse_mode="Markdown")
+        elif str(jo) == '5':
+            url = 'https://stepik.org/catalog?language=ru&q=' + 'Высшая математика'
+            hdr = {'User-Agent': 'YaBrowser/20.6.0.910'}
+            response = requests.get(url, headers=hdr)
+            print(response.status_code)
+            html = response.text
+            multi_class = "course-promo-widget__title ember-link ember-view"
+            soup = BeautifulSoup(html, "html.parser")
+            course_titles = soup.find_all("a", {"class": "course-promo-widget__title"})
+            print(len(course_titles))
+            title_list = []
+            for title in course_titles:
+                c = str(title)
+                a = c.find('<')
+                b = c.find('>') + 1
+                d = c[a:b]
+                e = c.replace(d, "")
+                f = e.replace("</a>", "")
+                course_link = 'stepik.org/' + title["href"]
+                full_message = '[' + f + ']' + '(' + course_link + ')'
+                bot.send_message(message.chat.id, full_message, parse_mode="Markdown")
+            alert_text = "Под действием защиты Stepik от парсинга Мы можем показывать только ограниченное количество курсов. Полный список курсов вы можете найти [здесь](" + url + ")"
+            bot.send_message(message.chat.id, alert_text, parse_mode="Markdown")
+    elif message.text == 'Курсы Stepik по Английскому':
+        if str(jo1) == '0':
+            url = 'https://stepik.org/catalog?language=ru&q=' + 'Английский язык 9 класс'
+            hdr = {'User-Agent': 'YaBrowser/20.6.0.910'}
+            response = requests.get(url, headers=hdr)
+            print(response.status_code)
+            html = response.text
+            multi_class = "course-promo-widget__title ember-link ember-view"
+            soup = BeautifulSoup(html, "html.parser")
+            course_titles = soup.find_all("a", {"class": "course-promo-widget__title"})
+            print(len(course_titles))
+            title_list = []
+            for title in course_titles:
+                c = str(title)
+                a = c.find('<')
+                b = c.find('>') + 1
+                d = c[a:b]
+                e = c.replace(d, "")
+                f = e.replace("</a>", "")
+                course_link = 'stepik.org/' + title["href"]
+                full_message = '[' + f + ']' + '(' + course_link + ')'
+                bot.send_message(message.chat.id, full_message, parse_mode="Markdown")
+            alert_text = "Под действием защиты Stepik от парсинга Мы можем показывать только ограниченное количество курсов. Полный список курсов вы можете найти [здесь](" + url + ")"
+            bot.send_message(message.chat.id, alert_text, parse_mode="Markdown")
+        elif str(jo1) == '1':
+            url = 'https://stepik.org/catalog?language=ru&q=' + 'Английский язык уровень A1'
+            hdr = {'User-Agent': 'YaBrowser/20.6.0.910'}
+            response = requests.get(url, headers=hdr)
+            print(response.status_code)
+            html = response.text
+            multi_class = "course-promo-widget__title ember-link ember-view"
+            soup = BeautifulSoup(html, "html.parser")
+            course_titles = soup.find_all("a", {"class": "course-promo-widget__title"})
+            print(len(course_titles))
+            title_list = []
+            for title in course_titles:
+                c = str(title)
+                a = c.find('<')
+                b = c.find('>') + 1
+                d = c[a:b]
+                e = c.replace(d, "")
+                f = e.replace("</a>", "")
+                course_link = 'stepik.org/' + title["href"]
+                full_message = '[' + f + ']' + '(' + course_link + ')'
+                bot.send_message(message.chat.id, full_message, parse_mode="Markdown")
+            alert_text = "Под действием защиты Stepik от парсинга Мы можем показывать только ограниченное количество курсов. Полный список курсов вы можете найти [здесь](" + url + ")"
+            bot.send_message(message.chat.id, alert_text, parse_mode="Markdown")
+        elif str(jo1) == '2':
+            url = 'https://stepik.org/catalog?language=ru&q=' + 'Английский язык уровень A2'
+            hdr = {'User-Agent': 'YaBrowser/20.6.0.910'}
+            response = requests.get(url, headers=hdr)
+            print(response.status_code)
+            html = response.text
+            multi_class = "course-promo-widget__title ember-link ember-view"
+            soup = BeautifulSoup(html, "html.parser")
+            course_titles = soup.find_all("a", {"class": "course-promo-widget__title"})
+            print(len(course_titles))
+            title_list = []
+            for title in course_titles:
+                c = str(title)
+                a = c.find('<')
+                b = c.find('>') + 1
+                d = c[a:b]
+                e = c.replace(d, "")
+                f = e.replace("</a>", "")
+                course_link = 'stepik.org/' + title["href"]
+                full_message = '[' + f + ']' + '(' + course_link + ')'
+                bot.send_message(message.chat.id, full_message, parse_mode="Markdown")
+            alert_text = "Под действием защиты Stepik от парсинга Мы можем показывать только ограниченное количество курсов. Полный список курсов вы можете найти [здесь](" + url + ")"
+            bot.send_message(message.chat.id, alert_text, parse_mode="Markdown")
+        elif str(jo1) == '3':
+            url = 'https://stepik.org/catalog?language=ru&q=' + 'Английский язык уровень B1'
+            hdr = {'User-Agent': 'YaBrowser/20.6.0.910'}
+            response = requests.get(url, headers=hdr)
+            print(response.status_code)
+            html = response.text
+            multi_class = "course-promo-widget__title ember-link ember-view"
+            soup = BeautifulSoup(html, "html.parser")
+            course_titles = soup.find_all("a", {"class": "course-promo-widget__title"})
+            print(len(course_titles))
+            title_list = []
+            for title in course_titles:
+                c = str(title)
+                a = c.find('<')
+                b = c.find('>') + 1
+                d = c[a:b]
+                e = c.replace(d, "")
+                f = e.replace("</a>", "")
+                course_link = 'stepik.org/' + title["href"]
+                full_message = '[' + f + ']' + '(' + course_link + ')'
+                bot.send_message(message.chat.id, full_message, parse_mode="Markdown")
+            alert_text = "Под действием защиты Stepik от парсинга Мы можем показывать только ограниченное количество курсов. Полный список курсов вы можете найти [здесь](" + url + ")"
+            bot.send_message(message.chat.id, alert_text, parse_mode="Markdown")
+        elif str(jo1) == '4':
+            url = 'https://stepik.org/catalog?language=ru&q=' + 'Английский язык уровень B2'
+            hdr = {'User-Agent': 'YaBrowser/20.6.0.910'}
+            response = requests.get(url, headers=hdr)
+            print(response.status_code)
+            html = response.text
+            multi_class = "course-promo-widget__title ember-link ember-view"
+            soup = BeautifulSoup(html, "html.parser")
+            course_titles = soup.find_all("a", {"class": "course-promo-widget__title"})
+            print(len(course_titles))
+            title_list = []
+            for title in course_titles:
+                c = str(title)
+                a = c.find('<')
+                b = c.find('>') + 1
+                d = c[a:b]
+                e = c.replace(d, "")
+                f = e.replace("</a>", "")
+                course_link = 'stepik.org/' + title["href"]
+                full_message = '[' + f + ']' + '(' + course_link + ')'
+                bot.send_message(message.chat.id, full_message, parse_mode="Markdown")
+            alert_text = "Под действием защиты Stepik от парсинга Мы можем показывать только ограниченное количество курсов. Полный список курсов вы можете найти [здесь](" + url + ")"
+            bot.send_message(message.chat.id, alert_text, parse_mode="Markdown")
+        elif str(jo1) == '5':
+            url = 'https://stepik.org/catalog?language=ru&q=' + 'Английский язык уровень C1'
+            hdr = {'User-Agent': 'YaBrowser/20.6.0.910'}
+            response = requests.get(url, headers=hdr)
+            print(response.status_code)
+            html = response.text
+            multi_class = "course-promo-widget__title ember-link ember-view"
+            soup = BeautifulSoup(html, "html.parser")
+            course_titles = soup.find_all("a", {"class": "course-promo-widget__title"})
+            print(len(course_titles))
+            title_list = []
+            for title in course_titles:
+                c = str(title)
+                a = c.find('<')
+                b = c.find('>') + 1
+                d = c[a:b]
+                e = c.replace(d, "")
+                f = e.replace("</a>", "")
+                course_link = 'stepik.org/' + title["href"]
+                full_message = '[' + f + ']' + '(' + course_link + ')'
+                bot.send_message(message.chat.id, full_message, parse_mode="Markdown")
+            alert_text = "Под действием защиты Stepik от парсинга Мы можем показывать только ограниченное количество курсов. Полный список курсов вы можете найти [здесь](" + url + ")"
+            bot.send_message(message.chat.id, alert_text, parse_mode="Markdown")
+    else:
+        mas = []
+        l = message.text
+        print(l)
+        l = str(l)
+        sq = 'http://www.youtube.com/results?search_query=' + quote(l)
+        doc = urllib.request.urlopen(sq).read().decode('UTF-8', errors='ignore')
+        match1 = re.compile('\?v\=(.+?)\ ')
+        match = match1.findall(doc)
+        if not (match is None):
+            for ii in match:
+                if (len(ii) < 25):
+                    mas.append(ii)
+        mas = dict(zip(mas, mas)).values()
+        mas2 = []
+        for y in mas: mas2.append('http://www.youtube.com/watch?v=' + y)
+        for il in mas2:
+            bot.send_message(chat_id=message.chat.id, text=il)
+        return mas2
+
+
+bot.polling(none_stop=True)
