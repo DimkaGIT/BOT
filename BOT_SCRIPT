@@ -130,7 +130,7 @@ def send_text(message):
                 bot.send_message(chat_id=message.chat.id, text='Вы уже ответили')
         else:
             cc.append(message.from_user.id+4)
-            if '9 и 5' in message.text or '9 5' in message.text':
+            if '9 и 5' in message.text or '9 5' in message.text:
                 gg.append(message.from_user.id + 4)
                 bot.send_message(chat_id=message.chat.id, text='Верно')
                 bot.send_message(chat_id=message.chat.id, text='М вопрос 5: В окружность радиуса R вписан треугольник. Вторая окружность, концентрическая с первой, касается одной стороны треугольника и делит каждую из двух других сторон на три равные части. Радиус второй окружности равен r. Найдите отношение r / R. Пример ответа, если это дробное число: 1/2')
@@ -478,282 +478,59 @@ def send_text(message):
             return mas2
     elif message.text == 'Курсы Stepik по Математике':
         if str(jo) == '0':
-            url = 'https://stepik.org/catalog?language=ru&q=' + 'Математика. 6 класс'
-            hdr = {'User-Agent': 'YaBrowser/20.6.0.910'}
-            response = requests.get(url, headers=hdr)
-            print(response.status_code)
-            html = response.text
-            multi_class = "course-promo-widget__title ember-link ember-view"
-            soup = BeautifulSoup(html, "html.parser")
-            course_titles = soup.find_all("a", {"class": "course-promo-widget__title"})
-            print(len(course_titles))
-            title_list = []
-            for title in course_titles:
-                c = str(title)
-                a = c.find('<')
-                b = c.find('>') + 1
-                d = c[a:b]
-                e = c.replace(d, "")
-                f = e.replace("</a>", "")
-                course_link = 'stepik.org/' + title["href"]
-                full_message = '[' + f + ']' + '(' + course_link + ')'
-                bot.send_message(message.chat.id, full_message, parse_mode="Markdown")
-            alert_text = "Под действием защиты Stepik от парсинга Мы можем показывать только ограниченное количество курсов. Полный список курсов вы можете найти [здесь](" + url + ")"
-            bot.send_message(message.chat.id, alert_text, parse_mode="Markdown")
+            bot.send_message(message.chat.id, 'https://stepik.org/course/4253/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/69903/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/48679/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/66444/promo')
         elif str(jo) == '1':
-            url = 'https://stepik.org/catalog?language=ru&q=' + 'Математика. 7 класс'
-            hdr = {'User-Agent': 'YaBrowser/20.6.0.910'}
-            response = requests.get(url, headers=hdr)
-            print(response.status_code)
-            html = response.text
-            multi_class = "course-promo-widget__title ember-link ember-view"
-            soup = BeautifulSoup(html, "html.parser")
-            course_titles = soup.find_all("a", {"class": "course-promo-widget__title"})
-            print(len(course_titles))
-            title_list = []
-            for title in course_titles:
-                c = str(title)
-                a = c.find('<')
-                b = c.find('>') + 1
-                d = c[a:b]
-                e = c.replace(d, "")
-                f = e.replace("</a>", "")
-                course_link = 'stepik.org/' + title["href"]
-                full_message = '[' + f + ']' + '(' + course_link + ')'
-                bot.send_message(message.chat.id, full_message, parse_mode="Markdown")
-            alert_text = "Под действием защиты Stepik от парсинга Мы можем показывать только ограниченное количество курсов. Полный список курсов вы можете найти [здесь](" + url + ")"
-            bot.send_message(message.chat.id, alert_text, parse_mode="Markdown")
+            bot.send_message(message.chat.id, 'https://stepik.org/course/68006/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/9737/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/48679/promo')
         elif str(jo) == '2':
-            url = 'https://stepik.org/catalog?language=ru&q=' + 'Математика. 8 класс'
-            hdr = {'User-Agent': 'YaBrowser/20.6.0.910'}
-            response = requests.get(url, headers=hdr)
-            print(response.status_code)
-            html = response.text
-            multi_class = "course-promo-widget__title ember-link ember-view"
-            soup = BeautifulSoup(html, "html.parser")
-            course_titles = soup.find_all("a", {"class": "course-promo-widget__title"})
-            print(len(course_titles))
-            title_list = []
-            for title in course_titles:
-                c = str(title)
-                a = c.find('<')
-                b = c.find('>') + 1
-                d = c[a:b]
-                e = c.replace(d, "")
-                f = e.replace("</a>", "")
-                course_link = 'stepik.org/' + title["href"]
-                full_message = '[' + f + ']' + '(' + course_link + ')'
-                bot.send_message(message.chat.id, full_message, parse_mode="Markdown")
-            alert_text = "Под действием защиты Stepik от парсинга Мы можем показывать только ограниченное количество курсов. Полный список курсов вы можете найти [здесь](" + url + ")"
-            bot.send_message(message.chat.id, alert_text, parse_mode="Markdown")
+            bot.send_message(message.chat.id, 'https://stepik.org/course/64111/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/4603/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/85/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/48679/promo')
         elif str(jo) == '3':
-            url = 'https://stepik.org/catalog?language=ru&q=' + 'Математика 10 класс'
-            hdr = {'User-Agent': 'YaBrowser/20.6.0.910'}
-            response = requests.get(url, headers=hdr)
-            print(response.status_code)
-            html = response.text
-            multi_class = "course-promo-widget__title ember-link ember-view"
-            soup = BeautifulSoup(html, "html.parser")
-            course_titles = soup.find_all("a", {"class": "course-promo-widget__title"})
-            print(len(course_titles))
-            title_list = []
-            for title in course_titles:
-                c = str(title)
-                a = c.find('<')
-                b = c.find('>') + 1
-                d = c[a:b]
-                e = c.replace(d, "")
-                f = e.replace("</a>", "")
-                course_link = 'stepik.org/' + title["href"]
-                full_message = '[' + f + ']' + '(' + course_link + ')'
-                bot.send_message(message.chat.id, full_message, parse_mode="Markdown")
-            alert_text = "Под действием защиты Stepik от парсинга Мы можем показывать только ограниченное количество курсов. Полный список курсов вы можете найти [здесь](" + url + ")"
-            bot.send_message(message.chat.id, alert_text, parse_mode="Markdown")
+            bot.send_message(message.chat.id, 'https://stepik.org/course/85/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/17869/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/54274/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/55072/promo')
         elif str(jo) == '4':
-            url = 'https://stepik.org/catalog?language=ru&q=' + 'Математика ЕГЭ'
-            hdr = {'User-Agent': 'YaBrowser/20.6.0.910'}
-            response = requests.get(url, headers=hdr)
-            print(response.status_code)
-            html = response.text
-            multi_class = "course-promo-widget__title ember-link ember-view"
-            soup = BeautifulSoup(html, "html.parser")
-            course_titles = soup.find_all("a", {"class": "course-promo-widget__title"})
-            print(len(course_titles))
-            title_list = []
-            for title in course_titles:
-                c = str(title)
-                a = c.find('<')
-                b = c.find('>') + 1
-                d = c[a:b]
-                e = c.replace(d, "")
-                f = e.replace("</a>", "")
-                course_link = 'stepik.org/' + title["href"]
-                full_message = '[' + f + ']' + '(' + course_link + ')'
-                bot.send_message(message.chat.id, full_message, parse_mode="Markdown")
-            alert_text = "Под действием защиты Stepik от парсинга Мы можем показывать только ограниченное количество курсов. Полный список курсов вы можете найти [здесь](" + url + ")"
-            bot.send_message(message.chat.id, alert_text, parse_mode="Markdown")
+            bot.send_message(message.chat.id, 'https://stepik.org/course/439/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/55461/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/9737/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/22402/promo')
         elif str(jo) == '5':
-            url = 'https://stepik.org/catalog?language=ru&q=' + 'Высшая математика'
-            hdr = {'User-Agent': 'YaBrowser/20.6.0.910'}
-            response = requests.get(url, headers=hdr)
-            print(response.status_code)
-            html = response.text
-            multi_class = "course-promo-widget__title ember-link ember-view"
-            soup = BeautifulSoup(html, "html.parser")
-            course_titles = soup.find_all("a", {"class": "course-promo-widget__title"})
-            print(len(course_titles))
-            title_list = []
-            for title in course_titles:
-                c = str(title)
-                a = c.find('<')
-                b = c.find('>') + 1
-                d = c[a:b]
-                e = c.replace(d, "")
-                f = e.replace("</a>", "")
-                course_link = 'stepik.org/' + title["href"]
-                full_message = '[' + f + ']' + '(' + course_link + ')'
-                bot.send_message(message.chat.id, full_message, parse_mode="Markdown")
-            alert_text = "Под действием защиты Stepik от парсинга Мы можем показывать только ограниченное количество курсов. Полный список курсов вы можете найти [здесь](" + url + ")"
-            bot.send_message(message.chat.id, alert_text, parse_mode="Markdown")
+            bot.send_message(message.chat.id, 'https://stepik.org/course/439/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/55461/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/9737/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/22402/promo')
     elif message.text == 'Курсы Stepik по Английскому':
         if str(jo1) == '0':
-            url = 'https://stepik.org/catalog?language=ru&q=' + 'Английский язык 9 класс'
-            hdr = {'User-Agent': 'YaBrowser/20.6.0.910'}
-            response = requests.get(url, headers=hdr)
-            print(response.status_code)
-            html = response.text
-            multi_class = "course-promo-widget__title ember-link ember-view"
-            soup = BeautifulSoup(html, "html.parser")
-            course_titles = soup.find_all("a", {"class": "course-promo-widget__title"})
-            print(len(course_titles))
-            title_list = []
-            for title in course_titles:
-                c = str(title)
-                a = c.find('<')
-                b = c.find('>') + 1
-                d = c[a:b]
-                e = c.replace(d, "")
-                f = e.replace("</a>", "")
-                course_link = 'stepik.org/' + title["href"]
-                full_message = '[' + f + ']' + '(' + course_link + ')'
-                bot.send_message(message.chat.id, full_message, parse_mode="Markdown")
-            alert_text = "Под действием защиты Stepik от парсинга Мы можем показывать только ограниченное количество курсов. Полный список курсов вы можете найти [здесь](" + url + ")"
-            bot.send_message(message.chat.id, alert_text, parse_mode="Markdown")
+            bot.send_message(message.chat.id, 'https://stepik.org/course/70675/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/50185/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/66264/promo')
         elif str(jo1) == '1':
-            url = 'https://stepik.org/catalog?language=ru&q=' + 'Английский язык уровень A1'
-            hdr = {'User-Agent': 'YaBrowser/20.6.0.910'}
-            response = requests.get(url, headers=hdr)
-            print(response.status_code)
-            html = response.text
-            multi_class = "course-promo-widget__title ember-link ember-view"
-            soup = BeautifulSoup(html, "html.parser")
-            course_titles = soup.find_all("a", {"class": "course-promo-widget__title"})
-            print(len(course_titles))
-            title_list = []
-            for title in course_titles:
-                c = str(title)
-                a = c.find('<')
-                b = c.find('>') + 1
-                d = c[a:b]
-                e = c.replace(d, "")
-                f = e.replace("</a>", "")
-                course_link = 'stepik.org/' + title["href"]
-                full_message = '[' + f + ']' + '(' + course_link + ')'
-                bot.send_message(message.chat.id, full_message, parse_mode="Markdown")
-            alert_text = "Под действием защиты Stepik от парсинга Мы можем показывать только ограниченное количество курсов. Полный список курсов вы можете найти [здесь](" + url + ")"
-            bot.send_message(message.chat.id, alert_text, parse_mode="Markdown")
+            bot.send_message(message.chat.id, 'https://stepik.org/course/58991/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/50185/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/4848/promo')
         elif str(jo1) == '2':
-            url = 'https://stepik.org/catalog?language=ru&q=' + 'Английский язык уровень A2'
-            hdr = {'User-Agent': 'YaBrowser/20.6.0.910'}
-            response = requests.get(url, headers=hdr)
-            print(response.status_code)
-            html = response.text
-            multi_class = "course-promo-widget__title ember-link ember-view"
-            soup = BeautifulSoup(html, "html.parser")
-            course_titles = soup.find_all("a", {"class": "course-promo-widget__title"})
-            print(len(course_titles))
-            title_list = []
-            for title in course_titles:
-                c = str(title)
-                a = c.find('<')
-                b = c.find('>') + 1
-                d = c[a:b]
-                e = c.replace(d, "")
-                f = e.replace("</a>", "")
-                course_link = 'stepik.org/' + title["href"]
-                full_message = '[' + f + ']' + '(' + course_link + ')'
-                bot.send_message(message.chat.id, full_message, parse_mode="Markdown")
-            alert_text = "Под действием защиты Stepik от парсинга Мы можем показывать только ограниченное количество курсов. Полный список курсов вы можете найти [здесь](" + url + ")"
-            bot.send_message(message.chat.id, alert_text, parse_mode="Markdown")
+            bot.send_message(message.chat.id, 'https://stepik.org/course/70147/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/50185/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/57339/promo')
         elif str(jo1) == '3':
-            url = 'https://stepik.org/catalog?language=ru&q=' + 'Английский язык уровень B1'
-            hdr = {'User-Agent': 'YaBrowser/20.6.0.910'}
-            response = requests.get(url, headers=hdr)
-            print(response.status_code)
-            html = response.text
-            multi_class = "course-promo-widget__title ember-link ember-view"
-            soup = BeautifulSoup(html, "html.parser")
-            course_titles = soup.find_all("a", {"class": "course-promo-widget__title"})
-            print(len(course_titles))
-            title_list = []
-            for title in course_titles:
-                c = str(title)
-                a = c.find('<')
-                b = c.find('>') + 1
-                d = c[a:b]
-                e = c.replace(d, "")
-                f = e.replace("</a>", "")
-                course_link = 'stepik.org/' + title["href"]
-                full_message = '[' + f + ']' + '(' + course_link + ')'
-                bot.send_message(message.chat.id, full_message, parse_mode="Markdown")
-            alert_text = "Под действием защиты Stepik от парсинга Мы можем показывать только ограниченное количество курсов. Полный список курсов вы можете найти [здесь](" + url + ")"
-            bot.send_message(message.chat.id, alert_text, parse_mode="Markdown")
+            bot.send_message(message.chat.id, 'https://stepik.org/course/70147/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/50185/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/57339/promo')
         elif str(jo1) == '4':
-            url = 'https://stepik.org/catalog?language=ru&q=' + 'Английский язык уровень B2'
-            hdr = {'User-Agent': 'YaBrowser/20.6.0.910'}
-            response = requests.get(url, headers=hdr)
-            print(response.status_code)
-            html = response.text
-            multi_class = "course-promo-widget__title ember-link ember-view"
-            soup = BeautifulSoup(html, "html.parser")
-            course_titles = soup.find_all("a", {"class": "course-promo-widget__title"})
-            print(len(course_titles))
-            title_list = []
-            for title in course_titles:
-                c = str(title)
-                a = c.find('<')
-                b = c.find('>') + 1
-                d = c[a:b]
-                e = c.replace(d, "")
-                f = e.replace("</a>", "")
-                course_link = 'stepik.org/' + title["href"]
-                full_message = '[' + f + ']' + '(' + course_link + ')'
-                bot.send_message(message.chat.id, full_message, parse_mode="Markdown")
-            alert_text = "Под действием защиты Stepik от парсинга Мы можем показывать только ограниченное количество курсов. Полный список курсов вы можете найти [здесь](" + url + ")"
-            bot.send_message(message.chat.id, alert_text, parse_mode="Markdown")
+            bot.send_message(message.chat.id, 'https://stepik.org/course/824/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/853/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/1587/promo')
         elif str(jo1) == '5':
-            url = 'https://stepik.org/catalog?language=ru&q=' + 'Английский язык уровень C1'
-            hdr = {'User-Agent': 'YaBrowser/20.6.0.910'}
-            response = requests.get(url, headers=hdr)
-            print(response.status_code)
-            html = response.text
-            multi_class = "course-promo-widget__title ember-link ember-view"
-            soup = BeautifulSoup(html, "html.parser")
-            course_titles = soup.find_all("a", {"class": "course-promo-widget__title"})
-            print(len(course_titles))
-            title_list = []
-            for title in course_titles:
-                c = str(title)
-                a = c.find('<')
-                b = c.find('>') + 1
-                d = c[a:b]
-                e = c.replace(d, "")
-                f = e.replace("</a>", "")
-                course_link = 'stepik.org/' + title["href"]
-                full_message = '[' + f + ']' + '(' + course_link + ')'
-                bot.send_message(message.chat.id, full_message, parse_mode="Markdown")
-            alert_text = "Под действием защиты Stepik от парсинга Мы можем показывать только ограниченное количество курсов. Полный список курсов вы можете найти [здесь](" + url + ")"
-            bot.send_message(message.chat.id, alert_text, parse_mode="Markdown")
+            bot.send_message(message.chat.id, 'https://stepik.org/course/824/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/853/promo')
+            bot.send_message(message.chat.id, 'https://stepik.org/course/1587/promo')
     else:
         mas = []
         l = message.text
